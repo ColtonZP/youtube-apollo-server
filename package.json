@@ -1,19 +1,19 @@
 {
   "name": "youtube-apollo-server",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "private": true,
   "scripts": {
     "build": "tsc",
-    "serve": "yarn run build && ts-node build/index.js",
-    "start": "ts-node src/index.ts",
-    "deploy": "yarn run build && gcloud app deploy"
+    "serve": "npm run build && node dist/index.js",
+    "start": "node dist/index.js",
+    "deploy": "npm run build && gcloud app deploy"
   },
   "dependencies": {
+    "@google-cloud/debug-agent": "^5.2.0",
     "apollo-datasource-rest": "^0.13.0",
     "apollo-server": "^2.24.0",
-    "graphql": "^15.5.0",
-    "ts-node": "^9.1.1"
+    "graphql": "^15.5.0"
   },
   "devDependencies": {
     "typescript": "^4.2.4"
