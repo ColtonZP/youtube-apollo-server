@@ -9,10 +9,15 @@ const typeDefs = gql`
     maxres: MaxRes
   }
 
+  type ResourceID {
+    videoId: String
+  }
+
   type VideoSnippet {
     description: String
     title: String!
     thumbnails: Thumbnail
+    resourceId: ResourceID
   }
 
   type Item {
@@ -24,8 +29,14 @@ const typeDefs = gql`
     items: [Item]
   }
 
+  type Playlist {
+    items: [Item]
+  }
+
   type Query {
     getVideo(id: String!, key: String!): Video
+    getPlaylist(playlistId: String!, key: String!): Playlist
+    getPlaylists(channelId: String!, key: String!): Playlist
   }
 `
 
@@ -33,6 +44,14 @@ const resolvers = {
   Query: {
     getVideo(_: any, { id, key }, { dataSources }) {
       return dataSources.YouTube.getVideo(id, key)
+    },
+
+    getPlaylist(_: any, { playlistId, key }, { dataSources }) {
+      return dataSources.YouTube.getPlaylist(playlistId, key)
+    },
+
+    getPlaylists(_: any, { channelId, key }, { dataSources }) {
+      return dataSources.YouTube.getPlaylists(channelId, key)
     },
   },
 }
