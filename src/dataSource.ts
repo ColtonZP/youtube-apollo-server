@@ -17,7 +17,7 @@ export class YouTube extends RESTDataSource {
   }
 
   async getPlaylist(playlistId: string, key: string) {
-    const data = await this.get('playlistItems?part=snippet&maxResults=9&', {
+    const data = await this.get('playlistItems?part=snippet&maxResults=200&', {
       playlistId: playlistId,
       key: key,
     })
@@ -32,6 +32,14 @@ export class YouTube extends RESTDataSource {
         key: key,
       }
     )
+    return data
+  }
+  
+  async getLatest(playlistId: string, key: string) {
+    const data = await this.get('playlistItems?part=snippet&maxResults=5&', {
+      playlistId: playlistId,
+      key: key,
+    })
     return data
   }
 }

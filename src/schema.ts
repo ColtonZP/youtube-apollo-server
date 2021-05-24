@@ -37,6 +37,7 @@ const typeDefs = gql`
     getVideo(id: String!, key: String!): Video
     getPlaylist(playlistId: String!, key: String!): Playlist
     getPlaylists(channelId: String!, key: String!): Playlist
+    getLatest(playlistId: String!, key: String!): Playlist
   }
 `
 
@@ -52,6 +53,10 @@ const resolvers = {
 
     getPlaylists(_: any, { channelId, key }, { dataSources }) {
       return dataSources.YouTube.getPlaylists(channelId, key)
+    },
+
+    getLatest(_: any, { playlistId, key }, { dataSources }) {
+      return dataSources.YouTube.getLatest(playlistId, key)
     },
   },
 }
