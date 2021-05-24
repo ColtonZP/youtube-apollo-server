@@ -1,9 +1,14 @@
 {
   "compilerOptions": {
     "target": "esnext",
+    "lib": ["es6", "dom", "esnext.asynciterable"],
+    "module": "commonjs",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "outDir": "build"
+  },
+  "compileOnSave": true,
+  "include": ["src"]
 }
