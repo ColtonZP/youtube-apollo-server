@@ -34,11 +34,20 @@ export class YouTube extends RESTDataSource {
     )
     return data
   }
-  
+
   async getLatest(playlistId: string, key: string) {
     const data = await this.get('playlistItems?part=snippet&maxResults=5&', {
       playlistId: playlistId,
       key: key,
+    })
+    return data
+  }
+
+  async getComments(videoId: string, key: string, pageToken: string) {
+    const data = await this.get('commentThreads?part=snippet&', {
+      videoId: videoId,
+      key: key,
+      pageToken: pageToken
     })
     return data
   }
