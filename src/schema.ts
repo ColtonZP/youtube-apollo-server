@@ -1,4 +1,4 @@
-import { makeExecutableSchema, gql } from 'apollo-server'
+import {makeExecutableSchema, gql} from 'apollo-server'
 
 const typeDefs = gql`
   type MaxRes {
@@ -58,39 +58,39 @@ const typeDefs = gql`
   }
 
   type Query {
-    getVideo(id: String!, key: String!): Video
-    getPlaylist(playlistId: String!, key: String!): Playlist
-    getPlaylists(channelId: String!, key: String!): Playlist
-    getLatest(playlistId: String!, key: String!): Playlist
-    getComments(videoId: String!, key: String!, pageToken: String): Comments
+    video(id: String!, key: String!): Video
+    playlist(playlistId: String!, key: String!, maxResults: Int!): Playlist
+    playlists(channelId: String!, key: String!, maxResults: Int!): Playlist
+    latest(playlistId: String!, key: String!, maxResults: Int!): Playlist
+    comments(videoId: String!, key: String!, pageToken: String): Comments
   }
 `
 
 const resolvers = {
-  Query: {
-    getVideo(_: any, { id, key }, { dataSources }) {
-      return dataSources.YouTube.getVideo(id, key)
-    },
+	Query: {
+		video(_: any, {id, key}, {dataSources}) {
+			return dataSources.YouTube.getVideo(id, key)
+		},
 
-    getPlaylist(_: any, { playlistId, key }, { dataSources }) {
-      return dataSources.YouTube.getPlaylist(playlistId, key)
-    },
+		playlist(_: any, {playlistId, key, maxResults}, {dataSources}) {
+			return dataSources.YouTube.getPlaylist(playlistId, key, maxResults)
+		},
 
-    getPlaylists(_: any, { channelId, key }, { dataSources }) {
-      return dataSources.YouTube.getPlaylists(channelId, key)
-    },
+		playlists(_: any, {channelId, key, maxResults}, {dataSources}) {
+			return dataSources.YouTube.getPlaylists(channelId, key, maxResults)
+		},
 
-    getLatest(_: any, { playlistId, key }, { dataSources }) {
-      return dataSources.YouTube.getLatest(playlistId, key)
-    },
+		latest(_: any, {playlistId, key, maxResults}, {dataSources}) {
+			return dataSources.YouTube.getLatest(playlistId, key, maxResults)
+		},
 
-    getComments(_: any, { videoId, key, pageToken }, { dataSources }) {
-      return dataSources.YouTube.getComments(videoId, key, pageToken)
-    },
-  },
+		comments(_: any, {videoId, key, pageToken}, {dataSources}) {
+			return dataSources.YouTube.getComments(videoId, key, pageToken)
+		},
+	},
 }
 
 export const schema = makeExecutableSchema({
-  typeDefs,
-  resolvers,
+	typeDefs,
+	resolvers,
 })
